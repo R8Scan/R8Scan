@@ -1,0 +1,6 @@
+benchmarks/
+database/
+.idea/
+mutants/
+target/
+toreport/
