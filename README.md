@@ -173,9 +173,7 @@ Specifically, overwriting `is_min` in the `UseFullTripCount` scenario leads to i
 
 ## Confirmed Bugs
 
-### R8 / JVM / ART bugs
-
-*Detection indicates whether the bug can be detected by any baselines.*
+### R8 / ART / JVM bugs
 
 | **Bug ID**      | **Compiler** | **Symptoms**          | **Affected Component** | **Status**  | **Priority Level** | **Link**                                         |
 |-----------------|--------------|-----------------------|------------------------|-------------|--------------------|--------------------------------------------------|
