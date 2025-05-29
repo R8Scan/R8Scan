@@ -3,6 +3,319 @@
 R8Scan is a tool for automated testing of the R8, utilizing optimization-triggering functions that extract from
 real-world Java projects.
 
+## Prompt Templates of R8Scan
+<details>
+<summary><b>The Prompt Templates of R8Scan</b></summary>
+ 
+```
+**[TASK]** Analyze the following Java function and construct up to three sets of argument expression using typed variables(e.g., int_var) to cover as many code lines as possible. Assume the typed variables can hold any non-null value, and ensure the arguments are valid without exception.
+
+**[Java Function #1]**
+int fun(int a, String b) {
+    int ret = 0;
+    if (a>10) {
+        ret += a;    
+    } else if (b.length() < 20) {
+        ret += b.length();
+    } else {
+        ret += a + b.length();
+    }
+    return ret;
+}
+
+**[Function Argument Expression Sets #1]**
+parameter set 1:
+    a = int_var1*int_var1 + 10;
+    b = int_arr_var1;
+parameter set 2:
+    a = -Math.abs(int_var1);
+    b = String_var1.substring(0, Math.min(String_var1.length(), 19));
+parameter set 3:
+    a = -Math.abs(int_var1);
+    b = text = String_var1 + "aaaaaaaaaaaaaaaaaaaa";
+
+**[Java Function #2]**
+int method(StringBuilder sb, String field, String value, String otherValue, int wrap) throws Exception {
+    sb.append("<tr><td style='margin-left: 5pt; margin-right: 25pt;").append("white-space: nowrap' valign='top'>").append(field).append("</td><td><span");
+    if (otherValue != null) {
+        sb.append('>').append(value).append("</span><br/><span");
+        value = otherValue;
+    }
+    if (wrap > 0) {
+        sb.append(" style='font-family:monospace'>");
+        for (int i = 0; i < value.length(); i++) {
+            if (((i % wrap) == 0) && (i > 0)) {
+                sb.append("<br/>");
+            }
+            sb.append(value.charAt(i));
+        }
+    } else {
+        sb.append(">");
+        sb.append(value);
+    }
+    sb.append("</span></td></tr>");
+    return wrap;
+}
+
+**[Function Argument Expression Sets #2]**
+parameter set 1:
+    sb = StringBuilder_var1
+    field = String_var1
+    value = String_var2
+    otherValue = String_var2.concat("abcde")
+    wrap = 2
+parameter set 2:
+    sb = StringBuilder_var1
+    field = String_var1
+    value = "s"
+    otherValue = null
+    wrap = Math.abs(int_var1) + 2
+parameter set 3:
+    sb = StringBuilder_var1
+    field = String_var1
+    value = String_var2
+    otherValue = null
+    wrap = 0 - Math.abs(int_var1)
+
+
+**[Java Function #3]**
+int method(int index, boolean selected) throws Exception {
+    if (true) {
+        if (selected) { ... }
+        if (index == (-1)) { ... } else { ... }
+    } else {
+        if (selected) { ... }
+        if (index == (-1)) { ... } else { ... }
+    }
+    return index;
+}
+
+**[Function Argument Expression Sets #3]**
+parameter set 1:
+    index = -1
+    selected = true
+parameter set 2:
+    index = int_var1
+    selected = true
+parameter set 3:
+    index = int_var1
+    selected = false
+
+**[Java Function #4]**
+int method() throws java.lang.Exception {
+    int ret = 0;
+    if (true) {
+        ret |= 1;
+    }
+    if (true) {
+        ret |= 2;
+    }
+    if (true) {
+        ret |= 4;
+    }
+    if (true) {
+        ret |= 8;
+    }
+    return ret;
+}
+
+**[Function Argument Expression Sets #4]**
+No param need to construct.
+
+**[Java Function #5]**
+int method(Map<String, Object> configuration) throws Exception {
+    String refreshIntervalString = ((String) (configuration.get("refresh")));
+    int port = 80;
+    String host = ((String) (configuration.get("host")));
+    String username = ((String) (configuration.get("username")));
+    String password = ((String) (configuration.get("password")));
+    if (true) {
+        ;
+    }
+    String portString = ((String) (configuration.get("port")));
+    if (true) {
+        port = Integer.parseInt(portString);
+    }
+    String prefix = "";
+    if (username != null) {
+        prefix = ((username + ":") + password) + "@";
+    }
+    return port;
+}
+
+**[Function Argument Expression Sets #5]**
+parameter set 1:
+configuration = new java.util.HashMap<java.lang.String, java.lang.Object>() {{ put("refresh", "string_var1"); put("host", "string_var2"); put("username", "string_var3"); put("password", "string_var4"); put("port", "int_var1"); }}
+parameter set 2:
+configuration = new java.util.HashMap<java.lang.String, java.lang.Object>() {{ put("refresh", "string_var1"); put("host", "string_var2"); put("username", null); put("password", "string_var3"); put("port", "int_var1"); }}
+parameter set 3:
+configuration = new java.util.HashMap<java.lang.String, java.lang.Object>() {{ put("refresh", "string_var1"); put("host", "string_var2"); put("username", "string_var3"); put("password", "string_var4"); }}
+
+**[Java Function #6]**
+int method(int[] nums, int target) throws Exception {
+    int left = 0;
+    int right = nums.length - 1;
+    while (left <= right) {
+        int mid = left + ((right - left) / 2);
+        if (nums[mid] < target) {
+            left = mid + 1;
+        } else if (nums[mid] > target) {
+            right = mid - 1;
+        } else if (nums[mid] == target) {
+            right = mid - 1;
+        }
+    }
+    System.out.print(("left ->" + left) + " ");
+    if ((left != nums.length) && (nums[left] == target)) {
+        return left;
+    }
+    return -1;
+}
+
+**[Function Argument Expression Sets #6]**
+parameter set 1:
+    nums = new int[]{1, 3, 5, 7, 9}
+    target = int_var1 % 5
+parameter set 2:
+    nums = new int[]{1, 3, 5, 7, 9}
+    target = Math.abs(int_var1) + 9
+parameter set 3:
+    nums = new int[]{}
+    target = int_var1
+
+**[Java Function #7]**
+int method(double priority, double multiplier) throws Exception {
+    int result = switch(Double.compare(priority, 0.5)) {
+        case -1 -> {
+            String message = "Priority is less than 0.5";
+            System.out.println(message);
+            int temp = (int) (priority * 2);
+            yield (int) ((temp * multiplier) + 1);
+        }
+        case 0 -> {
+            String message = "Priority is exactly 0.5";
+            System.out.println(message);
+            int temp = 5;
+            yield (int) ((temp * multiplier) + 2);
+        }
+        case 1 -> {
+            String message = "Priority is greater than 0.5";
+            System.out.println(message);
+            int temp = (int) (priority * 3);
+            yield (int) ((temp * multiplier) + 3);
+        }
+        default ->
+            throw new Exception("Invalid priority value");
+    };
+    return result;
+}
+    
+**[Function Argument Expression Sets #7]**
+parameter set 1:
+    priority = 0.4
+    multiplier = double_var1
+parameter set 2:
+    priority = 0.5
+    multiplier = double_var1
+parameter set 3:
+    priority = 0.6
+    multiplier = double_var1
+
+**[Java Function #8]**
+int method(int left, int top, int right, int bottom) throws Exception {
+    int width = right - left;
+    int height = bottom - top;
+    if (true) {
+        int ox = 47;
+        int oy = 72;
+        float ratioWidth = (1.0F * width) / 83;
+        float ratioHeight = (1.0F * height) / 36;
+    } else {
+    }
+    return top + left + bottom + width + right + height;
+}
+
+**[Function Argument Expression Sets #8]**
+parameter set 1:
+    left = int_var1
+    top = int_var2
+    right = int_var3
+    bottom = int_var4
+
+**[Java Function #9]**
+int method(int V, int E) throws Exception { 
+     if (E > ((((long) (V)) * (V - 1)) / 2)) { 
+         throw new IllegalArgumentException("Too many edges"); 
+     } 
+     if (E < (V - 1)) { 
+         throw new IllegalArgumentException("Too few edges"); 
+     } 
+     // fix a topological order 
+     int[] vertices = new int[V]; 
+     for (int i = 0; i < V; i++) { 
+         vertices[i] = i; 
+     } 
+     return E + V; 
+ }
+     
+**[Function Argument Expression Sets #9]**
+parameter set 1:
+    V = int_var1
+    E = (int) ((((long) (int_var1)) * (int_var1 - 1)) / 2) + 1
+parameter set 2:
+    V = int_var1
+    E = int_var1 - 2
+parameter set 3:
+    V = int_var1
+    E = int_var1 - 1
+
+**[Java Function #10]**
+int method(String dirName, List<String> excludes, int maxDepth) { 
+     Path dir = Paths.get("src/test/resources/roms", dirName); 
+     int depth = switch(maxDepth) { 
+         case 1, 2, 3, 4 -> 
+             maxDepth; 
+         default -> 
+             { 
+                 if (maxDepth > 10) { 
+                     yield 10; 
+                 } else { 
+                     yield maxDepth; 
+                 } 
+             } 
+     }; 
+     StringBuilder resultBuilder = new StringBuilder(); 
+     for (String exclude : excludes) { 
+         if (exclude.length() > 3) { 
+             resultBuilder.append(exclude).append("Filtered "); 
+         } 
+     } 
+     char[] resultCharArray = new char[resultBuilder.length()]; 
+     resultBuilder.getChars(0, resultBuilder.length(), resultCharArray, 0); 
+     for (char c : resultCharArray) { 
+         System.out.print(c); 
+     } 
+     System.out.println(); 
+     return depth; 
+ }
+
+**[Function Argument Expression Sets #10]**
+parameter set 1:
+    dirName = string_var1
+    excludes = java.util.Arrays.asList(string_var2.substring(0, Math.min(string_var2.length(), 3)), string_var3 + "AAAA")
+    maxDepth = int_var1 % 4 + 1
+parameter set 2:
+    dirName = string_var1
+    excludes = java.util.Arrays.asList(string_var2 + "", string_var3 + "")
+    maxDepth = Math.abs(int_var2) + 11
+parameter set 3:
+    dirName = string_var71   
+    excludes = new java.util.ArrayList<java.lang.String>()
+    maxDepth = (Math.abs(int_var1) % 6) + 5
+```
+
+</details>
+
 ## Usage of R8Scan
 
 ### Step 1: Prerequisites
