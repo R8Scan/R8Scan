@@ -24,13 +24,13 @@ int fun(int a, String b) {
 }
 
 **[Function Argument Expression Sets #1]**
-parameter set 1:
+Argument Expression Set 1:
     a = int_var1*int_var1 + 10;
     b = int_arr_var1;
-parameter set 2:
+Argument Expression Set 2:
     a = -Math.abs(int_var1);
     b = String_var1.substring(0, Math.min(String_var1.length(), 19));
-parameter set 3:
+Argument Expression Set 3:
     a = -Math.abs(int_var1);
     b = text = String_var1 + "aaaaaaaaaaaaaaaaaaaa";
 
@@ -58,19 +58,19 @@ int method(StringBuilder sb, String field, String value, String otherValue, int 
 }
 
 **[Function Argument Expression Sets #2]**
-parameter set 1:
+Argument Expression Set 1:
     sb = StringBuilder_var1
     field = String_var1
     value = String_var2
     otherValue = String_var2.concat("abcde")
     wrap = 2
-parameter set 2:
+Argument Expression Set 2:
     sb = StringBuilder_var1
     field = String_var1
     value = "s"
     otherValue = null
     wrap = Math.abs(int_var1) + 2
-parameter set 3:
+Argument Expression Set 3:
     sb = StringBuilder_var1
     field = String_var1
     value = String_var2
@@ -91,13 +91,13 @@ int method(int index, boolean selected) throws Exception {
 }
 
 **[Function Argument Expression Sets #3]**
-parameter set 1:
+Argument Expression Set 1:
     index = -1
     selected = true
-parameter set 2:
+Argument Expression Set 2:
     index = int_var1
     selected = true
-parameter set 3:
+Argument Expression Set 3:
     index = int_var1
     selected = false
 
@@ -144,11 +144,11 @@ int method(Map<String, Object> configuration) throws Exception {
 }
 
 **[Function Argument Expression Sets #5]**
-parameter set 1:
+Argument Expression Set 1:
 configuration = new java.util.HashMap<java.lang.String, java.lang.Object>() {{ put("refresh", "string_var1"); put("host", "string_var2"); put("username", "string_var3"); put("password", "string_var4"); put("port", "int_var1"); }}
-parameter set 2:
+Argument Expression Set 2:
 configuration = new java.util.HashMap<java.lang.String, java.lang.Object>() {{ put("refresh", "string_var1"); put("host", "string_var2"); put("username", null); put("password", "string_var3"); put("port", "int_var1"); }}
-parameter set 3:
+Argument Expression Set 3:
 configuration = new java.util.HashMap<java.lang.String, java.lang.Object>() {{ put("refresh", "string_var1"); put("host", "string_var2"); put("username", "string_var3"); put("password", "string_var4"); }}
 
 **[Java Function #6]**
@@ -173,13 +173,13 @@ int method(int[] nums, int target) throws Exception {
 }
 
 **[Function Argument Expression Sets #6]**
-parameter set 1:
+Argument Expression Set 1:
     nums = new int[]{1, 3, 5, 7, 9}
     target = int_var1 % 5
-parameter set 2:
+Argument Expression Set 2:
     nums = new int[]{1, 3, 5, 7, 9}
     target = Math.abs(int_var1) + 9
-parameter set 3:
+Argument Expression Set 3:
     nums = new int[]{}
     target = int_var1
 
@@ -211,13 +211,13 @@ int method(double priority, double multiplier) throws Exception {
 }
     
 **[Function Argument Expression Sets #7]**
-parameter set 1:
+Argument Expression Set 1:
     priority = 0.4
     multiplier = double_var1
-parameter set 2:
+Argument Expression Set 2:
     priority = 0.5
     multiplier = double_var1
-parameter set 3:
+Argument Expression Set 3:
     priority = 0.6
     multiplier = double_var1
 
@@ -236,7 +236,7 @@ int method(int left, int top, int right, int bottom) throws Exception {
 }
 
 **[Function Argument Expression Sets #8]**
-parameter set 1:
+Argument Expression Set 1:
     left = int_var1
     top = int_var2
     right = int_var3
@@ -259,13 +259,13 @@ int method(int V, int E) throws Exception {
  }
      
 **[Function Argument Expression Sets #9]**
-parameter set 1:
+Argument Expression Set 1:
     V = int_var1
     E = (int) ((((long) (int_var1)) * (int_var1 - 1)) / 2) + 1
-parameter set 2:
+Argument Expression Set 2:
     V = int_var1
     E = int_var1 - 2
-parameter set 3:
+Argument Expression Set 3:
     V = int_var1
     E = int_var1 - 1
 
@@ -300,15 +300,15 @@ int method(String dirName, List<String> excludes, int maxDepth) {
  }
 
 **[Function Argument Expression Sets #10]**
-parameter set 1:
+Argument Expression Set 1:
     dirName = string_var1
     excludes = java.util.Arrays.asList(string_var2.substring(0, Math.min(string_var2.length(), 3)), string_var3 + "AAAA")
     maxDepth = int_var1 % 4 + 1
-parameter set 2:
+Argument Expression Set 2:
     dirName = string_var1
     excludes = java.util.Arrays.asList(string_var2 + "", string_var3 + "")
     maxDepth = Math.abs(int_var2) + 11
-parameter set 3:
+Argument Expression Set 3:
     dirName = string_var71   
     excludes = new java.util.ArrayList<java.lang.String>()
     maxDepth = (Math.abs(int_var1) % 6) + 5
